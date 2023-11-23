@@ -10,6 +10,7 @@ import {
 import React, { useEffect, useRef, useState } from "react";
 import * as Location from "expo-location";
 import Card from "./components/Card";
+import { Image } from "react-native";
 
 //day
 const dayClear = require("../assets/day.png");
@@ -26,6 +27,8 @@ const nightRain = require("../assets/NightRain.png");
 const nightStorm = require("../assets/NightStorm.png");
 const nightSnow = require("../assets/NightSnow.png");
 const nightMist = require("../assets/NightWind.png");
+
+const loadingImg = require("../assets/loading.gif");
 
 const width = Dimensions.get("window").width;
 const height = Dimensions.get("window").height;
@@ -81,7 +84,7 @@ const Home = () => {
     setLoading(true);
     const lat = location.coords.latitude;
     const lon = location.coords.longitude;
-    console.log(lat + " and " + lon);
+    // console.log(lat + " and " + lon);
 
     const key = "fca456536ed53ec2a1d85f83de42c884";
     fetch(
@@ -89,7 +92,7 @@ const Home = () => {
     )
       .then((response) => response.json()) // Convert the response to JSON
       .then((data) => {
-        console.log(data);
+        // console.log(data);
         setData(data);
         filterUniqueDays(data.list);
 
@@ -120,7 +123,7 @@ const Home = () => {
     });
 
     const uniqueDaysArray = Object.values(uniqueDaysMap);
-    console.log(uniqueDaysArray);
+    // console.log(uniqueDaysArray);
     setDaysData(uniqueDaysArray);
     setLoading(false);
   };
@@ -206,7 +209,17 @@ const Home = () => {
 
   if (loading) {
     return (
-      <View>
+      <View
+        style={{
+          justifyContent: "center",
+          alignItems: "center",
+          height: height,
+        }}
+      >
+        <Image
+          source={loadingImg}
+          style={{ width: 300, height: 300, resizeMode: "contain" }}
+        />
         <Text>Loading</Text>
       </View>
     );
