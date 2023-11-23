@@ -84,9 +84,8 @@ const Home = () => {
     setLoading(true);
     const lat = location.coords.latitude;
     const lon = location.coords.longitude;
-    // console.log(lat + " and " + lon);
 
-    const key = "fca456536ed53ec2a1d85f83de42c884";
+    const key = process.env.EXPO_PUBLIC_API_KEY;
     fetch(
       `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${key}`
     )
@@ -137,7 +136,7 @@ const Home = () => {
       }
 
       let location = await Location.getCurrentPositionAsync({});
-      console.log("location: " + location);
+      // console.log("location: " + location);
       fetchData(location);
     })();
   }, []);
